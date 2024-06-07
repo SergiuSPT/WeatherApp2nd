@@ -1,0 +1,21 @@
+#location {
+    width: 20%;
+}
+#days {
+    width: 20%;
+}
+body {
+    height:150vh;
+    background: linear-gradient(aqua,black);
+    background-repeat:no-repeat;
+}
+.container > form {
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.detailsBox {
+    display: inline-block;
+    background-color: white;
+    border-radius: 10px;
+}

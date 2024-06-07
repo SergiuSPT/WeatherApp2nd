@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>YourWeather</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/styles/main.css">
+    </head>
+    <body>
+        <div class="container flex mt-5">
+            <h1><%= h1 %></h1>
+            <form action="/submit" method="POST">
+                <div class="mb-3 mt-3">
+                    <label for="location" class="form-label">Location: </label>
+                    <input type="text" id="location" class="form-control" name="location">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="days" class="form-label">Days (1-14): </label>
+                    <input type="number" id="days" class="form-control" name="days" min="1" max="14">
+                </div>
+                <button class="mb-3 mt-3 btn btn-primary" type="submit" value="Submit">Submit</button>
+            </form>
+            <%if(locals.days) {%>
+                <div class="row mt-3">
+                    <%for(let i=0;i<days;i++){%>
+                        <div class="col-sm-3 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                <h4 class="card-title"><%=location%>, <%=Math.floor(weather.forecast.forecastday[i].day.avgtemp_c)%>° C</h4>
+                                <p class="card-text"><%=weather.forecast.forecastday[i].date%></p>
+                                <p class="card-text"><%=weather.forecast.forecastday[i].day.condition.text%></p>
+                                <form action="/details" method="POST">
+                                    <button id="button<%=i%>" class="btn btn-outline-warning" type="submit" value="Details">Details</button>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    <%}%>
+                </div>
+                
+                <%if(locals.detailsFlag == 1){%>
+
+                    <div class="row">
+                        <div class="col-sm-12 detailsBox">
+                            <div class="humidityBox"><h3>Humidity</h3></div>
+                            <div class="UVBox"><h3>UV Index</h3></div>
+                            <div class="sunriseBox"><h3>Sunrise</h3></div>
+                            <div class="sunsetBox"><h3>Sunset</h3></div>
+                        </div>
+                    </div>
+                <%}%>
+            <%}%>
+            
+        </div>
+        <script src="/index.js" async defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
